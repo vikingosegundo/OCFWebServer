@@ -384,6 +384,15 @@ static void _NetServiceClientCallBack(CFNetServiceRef service, CFStreamError* er
   return success;
 }
 
+-(BOOL)runWithPort:(NSUInteger)port onQueue:(dispatch_queue_t)queue
+{
+    __block BOOL b;
+    dispatch_async(queue, ^{
+        b = [self runWithPort:port];
+    });
+    return b;
+}
+
 @end
 
 @implementation OCFWebServer (Handlers)
